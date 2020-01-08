@@ -5,96 +5,105 @@ import NoteListMain from './components/NoteListMain/NoteListMain'
 import NotePageMain from './components/NotePageMain/NotePageMain'
 import NotePageNav from './components/NotePageNav/NotePageNav'
 import { Route, Link } from 'react-router-dom';
+import ApiContext from './ApiContext'
+import dummyStore from './dummyStore'
 
 class App extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = props.store
+  state = {
+    notes: [],
+    folders: [],
+  };
+
+  componentDidMount() {
+    setTimeout(() => this.setState(dummyStore), 600)
   }
 
 
   render() {
+    const value = {
+      notes: this.state.notes,
+      folders: this.state.folders,
+    }
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1><Link to={'/'}>Noteful</Link></h1>
-        </header>
+      <ApiContext.Provider value={value}>
+        <div className="App">
+          <header className="App-header">
+            <h1><Link to={'/'}>Noteful</Link></h1>
+          </header>
 
-        <aside>
-          <Route
-            exact
-            path='/'
-            render={() =>
-              <NoteListNav folders={this.state.folders} />
-            }
-          />
-          {/* Folder Route */}
-          <Route
-            exact
-            path='/folders/:folderId'
-            render={(props) =>
-              <NoteListNav folders={this.state.folders} selected={props.match.params.folderId} />
-            }
-          />
-          {/* Note Route */}
-          <Route
-            exact
-            path='/notes/:noteId'
-            render={(props) => {
-              const selectedFolderId = this.state.notes.find(
-                note => note.id === props.match.params.noteId
-              ).folderId
+          <aside>
+            <Route
+              exact
+              path='/'
+              // render={() =>
+              //  <NoteListNav folders={this.state.folders} />
+              // }
+              component={NoteListNav}
+            />
+            {/* Folder Route */}
+            <Route
+              exact
+              path='/folders/:folderId'
+              render={(props) =>
+                <NoteListNav selected={props.match.params.folderId} />
+              }
+              // conponent={NoteListNav}
+            />
+            {/* Note Route */}
+            <Route
+              exact
+              path='/notes/:noteId'
+              // render={(props) => {
+              //   const selectedFolderId = this.state.notes.find(
+              //     note => note.id === props.match.params.noteId
+              //   ).folderId
 
-              const selectedFolder = this.state.folders.find(
-                folder => folder.id === selectedFolderId
-              )
+              //   const selectedFolder = this.state.folders.find(
+              //     folder => folder.id === selectedFolderId
+              //   )
 
-              return (
-                <NotePageNav {...selectedFolder} />
-              )
-            }}
-          />
-        </aside>
+              //   return (
+              //     <NotePageNav {...selectedFolder} />
+              //   )
+              // }}
+              component={NotePageNav}
+            />
+          </aside>
 
-        <main>
-          {/* Show/hide components in 'MAIN' section based on route */}
-          {/* Main Route */}
-          <Route
-            exact
-            path='/'
-            render={() =>
-              <NoteListMain notes={this.state.notes} />
-            }
-          />
-          {/* Folder Route */}
-          <Route
-            exact
-            path='/folders/:folderId' 
-            render={(props) => {
-              return (
-                <NoteListMain
-                  notes={this.state.notes.filter(
-                    note => note.folderId === props.match.params.folderId
-                  )}
-                />
-              )
-            }}
-          />
-          {/* Note Route */}
-          <Route
-            exact
-            path='/notes/:noteId'
-            render={(props) => {
-              const selectedNote = this.state.notes.find(
-                note => note.id === props.match.params.noteId
-              )
-              return (
-                <NotePageMain {...selectedNote}/>
-              )
-            }}
-          />
-        </main>
-      </div>
+          <main>
+            {/* Show/hide components in 'MAIN' section based on route */}
+            {/* Main Route */}
+            <Route
+              exact
+              path='/'
+              // render={() =>
+              //   <NoteListMain notes={this.state.notes} />
+              // }
+              component={NoteListMain}
+            />
+            {/* Folder Route */}
+            <Route
+              exact
+              path='/folders/:folderId'
+              component={NoteListMain}
+            />
+            {/* Note Route */}
+            <Route
+              exact
+              path='/notes/:noteId'
+              // render={(props) => {
+              //   const selectedNote = this.state.notes.find(
+              //     note => note.id === props.match.params.noteId
+              //   )
+              //   return (
+              //     <NotePageMain {...selectedNote}/>
+              //   )
+              // }}
+              component={NotePageMain}
+            />
+          </main>
+        </div>
+      </ApiContext.Provider>
     );
   }
 }

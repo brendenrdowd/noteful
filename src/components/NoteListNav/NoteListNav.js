@@ -1,15 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import ApiContext from '../../ApiContext'
 
 class NoteListNav extends React.Component {
+  static contextType = ApiContext
 
   render() {
+    const { folders=[]} = this.context
     return (
       <div className="Sidebar">
         <h2>Folders</h2>
         <ul>
 
-          {this.props.folders.map((folder) => {
+          {folders.map((folder) => {
             const classes = this.props.selected === folder.id
               ? 'folder selected'
               : 'folder'
