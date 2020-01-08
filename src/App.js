@@ -6,7 +6,8 @@ import NotePageMain from './components/NotePageMain/NotePageMain'
 import NotePageNav from './components/NotePageNav/NotePageNav'
 import { Route, Link } from 'react-router-dom';
 import ApiContext from './ApiContext'
-import dummyStore from './dummyStore'
+// import dummyStore from './dummyStore'
+import config from './config'
 
 class App extends React.Component {
   state = {
@@ -15,7 +16,27 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    setTimeout(() => this.setState(dummyStore), 600)
+    Promise.all([
+      fetch(`${config.API_ENDPOINT}/notes`),
+      fetch(`${config.API_ENDPOINT}/folders`)
+    ])
+      .then(([notesRes, foldersRes]) => {
+        if (!notesRes.ok)
+          return notesRes.json().then(e => Promise.reject(e))
+        if (!foldersRes.ok)
+          return foldersRes.json().then(e => Promise.reject(e))
+
+        return Promise.all([
+          notesRes.json(),
+          foldersRes.json(),
+        ])
+      })
+      .then(([notes, folders]) => {
+        this.setState({ notes, folders })
+      })
+      .catch(error => {
+        console.error({ error })
+      })
   }
 
 
