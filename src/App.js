@@ -35,9 +35,6 @@ class App extends React.Component {
             <Route
               exact
               path='/'
-              // render={() =>
-              //  <NoteListNav folders={this.state.folders} />
-              // }
               component={NoteListNav}
             />
             {/* Folder Route */}
@@ -53,19 +50,6 @@ class App extends React.Component {
             <Route
               exact
               path='/notes/:noteId'
-              // render={(props) => {
-              //   const selectedFolderId = this.state.notes.find(
-              //     note => note.id === props.match.params.noteId
-              //   ).folderId
-
-              //   const selectedFolder = this.state.folders.find(
-              //     folder => folder.id === selectedFolderId
-              //   )
-
-              //   return (
-              //     <NotePageNav {...selectedFolder} />
-              //   )
-              // }}
               component={NotePageNav}
             />
           </aside>
@@ -76,9 +60,6 @@ class App extends React.Component {
             <Route
               exact
               path='/'
-              // render={() =>
-              //   <NoteListMain notes={this.state.notes} />
-              // }
               component={NoteListMain}
             />
             {/* Folder Route */}
@@ -91,14 +72,6 @@ class App extends React.Component {
             <Route
               exact
               path='/notes/:noteId'
-              // render={(props) => {
-              //   const selectedNote = this.state.notes.find(
-              //     note => note.id === props.match.params.noteId
-              //   )
-              //   return (
-              //     <NotePageMain {...selectedNote}/>
-              //   )
-              // }}
               component={NotePageMain}
             />
           </main>
