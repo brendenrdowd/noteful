@@ -6,7 +6,8 @@ class NotePageNav extends React.Component {
   static contextType = ApiContext
 
   render() {
-    const { notes,folders } = this.context
+    console.log(this.props)
+    const { notes, folders } = this.context
     const selectedFolderId = notes.find(
       note => note.id === this.props.match.params.noteId
     ).folderId

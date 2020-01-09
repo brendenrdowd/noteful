@@ -80,3 +80,17 @@
   color: red;
   font-weight: bold;
 }
+
+label,input,select,textarea{
+  display:block;
+  margin:1em  0;
+}
+
+.addNote{
+  width:30%;
+  margin:auto;
+}
+
+.center{
+  text-align: center;
+}

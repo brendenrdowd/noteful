@@ -4,9 +4,10 @@ import NoteListNav from './components/NoteListNav/NoteListNav'
 import NoteListMain from './components/NoteListMain/NoteListMain'
 import NotePageMain from './components/NotePageMain/NotePageMain'
 import NotePageNav from './components/NotePageNav/NotePageNav'
+import AddNote from './components/AddNote/AddNote'
+import AddFolder from './components/AddFolder/AddFolder'
 import { Route, Link } from 'react-router-dom';
 import ApiContext from './ApiContext'
-// import dummyStore from './dummyStore'
 import config from './config'
 
 class App extends React.Component {
@@ -39,11 +40,33 @@ class App extends React.Component {
       })
   }
 
+  // Handlers
+
+  handleAddFolder = folder => {
+    this.setState({
+      folders: [...this.state.folders, folder]
+    })
+  }
+
+  handleAddNote = note => {
+    this.setState({
+      notes: [...this.state.notes, note]
+    })
+  }
+
+  handleDeleteNote = noteId => {
+    this.setState({
+      notes: this.state.notes.filter(note => note.id !== noteId)
+    })
+  }
 
   render() {
     const value = {
       notes: this.state.notes,
       folders: this.state.folders,
+      addFolder: this.handleAddFolder,
+      addNote: this.handleAddNote,
+      deleteNote: this.handleDeleteNote,
     }
     return (
       <ApiContext.Provider value={value}>
@@ -63,9 +86,9 @@ class App extends React.Component {
               exact
               path='/folders/:folderId'
               render={(props) =>
+                // will need propType
                 <NoteListNav selected={props.match.params.folderId} />
               }
-              // conponent={NoteListNav}
             />
             {/* Note Route */}
             <Route
@@ -78,12 +101,12 @@ class App extends React.Component {
           <main>
             {/* Show/hide components in 'MAIN' section based on route */}
             {/* Main Route */}
+            {/* Folder Route */}
             <Route
               exact
               path='/'
               component={NoteListMain}
             />
-            {/* Folder Route */}
             <Route
               exact
               path='/folders/:folderId'
@@ -94,6 +117,16 @@ class App extends React.Component {
               exact
               path='/notes/:noteId'
               component={NotePageMain}
+            />
+            <Route
+              exact
+              path='/folders/add'
+              component={AddFolder}
+            />
+            <Route
+              exact
+              path='/add/note'
+              component={AddNote}
             />
           </main>
         </div>

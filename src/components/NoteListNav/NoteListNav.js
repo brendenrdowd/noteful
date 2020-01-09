@@ -6,7 +6,7 @@ class NoteListNav extends React.Component {
   static contextType = ApiContext
 
   render() {
-    const { folders=[]} = this.context
+    const { folders = [] } = this.context
     return (
       <div className="Sidebar">
         <h2>Folders</h2>
@@ -17,14 +17,16 @@ class NoteListNav extends React.Component {
               ? 'folder selected'
               : 'folder'
 
-            return(
+            return (
               <li key={folder.id}>
                 <Link className={classes} to={`/folders/${folder.id}`}>{folder.name}</Link>
               </li>
             )
           })}
         </ul>
-        <button>New Folders</button>
+        <Link to="/folders/add">
+          <button type="button">Add Folder</button>
+        </Link>
       </div>
     );
   }

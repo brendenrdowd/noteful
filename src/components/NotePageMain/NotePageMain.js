@@ -4,7 +4,12 @@ import Note from '../Note/Note';
 import ApiContext from '../../ApiContext'
 
 class NotePageMain extends React.Component {
+
   static contextType = ApiContext;
+
+  handleDeleteNote = noteId => {
+    this.props.history.push(`/`)
+  }
 
   render() {
     const {notes=[]} = this.context
@@ -14,7 +19,7 @@ class NotePageMain extends React.Component {
     )
     return (
       <div className="Main">
-        <Note modified={note.modified} id={note.id } name={note.name} />
+        <Note modified={note.modified} id={note.id } name={note.name} onDeleteNote={this.handleDeleteNote} />
         <p>{note.content}</p>
       </div>
     );

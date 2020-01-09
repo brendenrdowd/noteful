@@ -1,5 +1,5 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Note from '../Note/Note';
 import ApiContext from '../../ApiContext'
 
@@ -24,7 +24,9 @@ class NoteListMain extends React.Component {
             )
           })}
         </ul>
-        <button>New Note</button>
+        <Link to='/add/note'>
+          <button>New Note</button>
+        </Link>
       </div>
     );
   }
