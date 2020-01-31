@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ApiContext from '../../ApiContext';
-import config from '../../../api/config'
+import config from '../../api/config'
 import PropTypes from 'prop-types'
 
 

@@ -8,7 +8,7 @@ import AddNote from './components/AddNote/AddNote'
 import AddFolder from './components/AddFolder/AddFolder'
 import { Route, Link } from 'react-router-dom';
 import ApiContext from './ApiContext'
-import config from '../api/config'
+import config from './api/config'
 import ErrorPage from './components/ErrorPage/ErrorPage'
 
 class App extends React.Component {
