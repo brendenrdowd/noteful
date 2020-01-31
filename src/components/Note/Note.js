@@ -2,27 +2,19 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import ApiContext from '../../ApiContext';
 import config from '../../config'
+import PropTypes from 'prop-types'
 
-// Found this on stack overflow: https://stackoverflow.com/questions/3552461/how-to-format-a-javascript-date
-function formatDate(date) {
-  var monthNames = [
-    "January", "February", "March",
-    "April", "May", "June", "July",
-    "August", "September", "October",
-    "November", "December"
-  ];
 
-  var day = date.getDate();
-  var monthIndex = date.getMonth();
-  var year = date.getFullYear();
-
-  return monthNames[monthIndex] + ' ' + day + ', ' + year;
-}
 
 class Note extends React.Component {
   static defaultProps = {
-    onDeleteNote: () => { },
+    history: {
+      push: () => { }
+    }
   }
+
+  
+
   static contextType = ApiContext;
 
   handleClickDelete = e => {
@@ -41,16 +33,30 @@ class Note extends React.Component {
         return res.json()
       })
       .then(() => {
-        this.context.deleteNote(noteId)
-        this.props.onDeleteNote(noteId)
+        this.props.history.push('/');
+        this.context.deleteNote(noteId);
       })
       .catch(error => {
-        console.error({ error })
+        console.error({ error });
       })
   }
 
 
   render() {
+    function formatDate(date) {
+      var monthNames = [
+        "January", "February", "March",
+        "April", "May", "June", "July",
+        "August", "September", "October",
+        "November", "December"
+      ];
+    
+      var day = date.getDate();
+      var monthIndex = date.getMonth();
+      var year = date.getFullYear();
+    
+      return monthNames[monthIndex] + ' ' + day + ', ' + year;
+    }
     const modified = formatDate(new Date(this.props.modified));
     return (
       <li className="Note">
@@ -62,7 +68,13 @@ class Note extends React.Component {
       </li>
     );
   }
+}
 
+Note.propTypes = {
+  modified:PropTypes.string,
+  id:PropTypes.string,
+  content:PropTypes.string,
+  name:PropTypes.string
 }
 
 export default Note;

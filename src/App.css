@@ -94,3 +94,7 @@ label,input,select,textarea{
 .center{
   text-align: center;
 }
+
+.error{
+  color:red;
+}

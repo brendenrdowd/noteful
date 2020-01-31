@@ -6,15 +6,18 @@ class NotePageNav extends React.Component {
   static contextType = ApiContext
 
   render() {
-    console.log(this.props)
     const { notes, folders } = this.context
-    const selectedFolderId = notes.find(
-      note => note.id === this.props.match.params.noteId
-    ).folderId
-
-    const selectedFolder = folders.find(
-      folder => folder.id === selectedFolderId
-    )
+    let selectedFolder = {}
+    //need to clean up
+    if(notes.length && folders.length){
+      const selectedFolderId = notes.find(
+        note => note.id === this.props.match.params.noteId
+      ).folderId
+  
+      selectedFolder = folders.find(
+        folder => folder.id === selectedFolderId
+      )
+    }
 
     return (
       <div className="Sidebar">

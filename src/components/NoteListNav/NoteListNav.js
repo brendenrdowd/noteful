@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ApiContext from '../../ApiContext'
+import ApiContext from '../../ApiContext';
+import PropTypes from 'prop-types'
 
 class NoteListNav extends React.Component {
   static contextType = ApiContext
@@ -33,7 +34,12 @@ class NoteListNav extends React.Component {
 }
 
 NoteListNav.defaultProps = {
-  folders: []
+  selected:""
+}
+
+NoteListNav.propTypes = {
+  folders: PropTypes.array,
+  selected: PropTypes.string
 }
 
 export default NoteListNav;

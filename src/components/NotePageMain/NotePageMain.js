@@ -7,19 +7,24 @@ class NotePageMain extends React.Component {
 
   static contextType = ApiContext;
 
-  handleDeleteNote = noteId => {
-    this.props.history.push(`/`)
-  }
 
   render() {
     const {notes=[]} = this.context
-    const { noteId } = this.props.match.params
-    const note = notes.find(
-      note => note.id === noteId
-    )
+    let note = {}
+    //need to clean up
+    if(notes.length){
+      const { noteId } = this.props.match.params
+      note = notes.find(
+        note => note.id === noteId
+      )
+    }
     return (
       <div className="Main">
-        <Note modified={note.modified} id={note.id } name={note.name} onDeleteNote={this.handleDeleteNote} />
+        <Note
+        {...this.props} 
+        modified={note.modified} 
+        id={note.id } 
+        name={note.name} />
         <p>{note.content}</p>
       </div>
     );

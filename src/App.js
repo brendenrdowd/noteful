@@ -9,6 +9,7 @@ import AddFolder from './components/AddFolder/AddFolder'
 import { Route, Link } from 'react-router-dom';
 import ApiContext from './ApiContext'
 import config from './config'
+import ErrorPage from './components/ErrorPage/ErrorPage'
 
 class App extends React.Component {
   state = {
@@ -41,7 +42,6 @@ class App extends React.Component {
   }
 
   // Handlers
-
   handleAddFolder = folder => {
     this.setState({
       folders: [...this.state.folders, folder]
@@ -75,60 +75,61 @@ class App extends React.Component {
             <h1><Link to={'/'}>Noteful</Link></h1>
           </header>
 
-          <aside>
-            <Route
-              exact
-              path='/'
-              component={NoteListNav}
-            />
-            {/* Folder Route */}
-            <Route
-              exact
-              path='/folders/:folderId'
-              render={(props) =>
-                // will need propType
-                <NoteListNav selected={props.match.params.folderId} />
-              }
-            />
-            {/* Note Route */}
-            <Route
-              exact
-              path='/notes/:noteId'
-              component={NotePageNav}
-            />
-          </aside>
+          <ErrorPage>
+            <aside>
+              <Route
+                exact
+                path='/'
+                component={NoteListNav}
+              />
+              {/* Folder Route */}
+              <Route
+                exact
+                path='/folders/:folderId'
+                render={(props) =>
+                  <NoteListNav selected={props.match.params.folderId} />
+                }
+              />
+              {/* Note Route */}
+              <Route
+                exact
+                path='/notes/:noteId'
+                component={NotePageNav}
+              />
+            </aside>
 
-          <main>
-            {/* Show/hide components in 'MAIN' section based on route */}
-            {/* Main Route */}
-            {/* Folder Route */}
-            <Route
-              exact
-              path='/'
-              component={NoteListMain}
-            />
-            <Route
-              exact
-              path='/folders/:folderId'
-              component={NoteListMain}
-            />
-            {/* Note Route */}
-            <Route
-              exact
-              path='/notes/:noteId'
-              component={NotePageMain}
-            />
-            <Route
-              exact
-              path='/folders/add'
-              component={AddFolder}
-            />
-            <Route
-              exact
-              path='/add/note'
-              component={AddNote}
-            />
-          </main>
+            <main>
+              {/* Show/hide components in 'MAIN' section based on route */}
+              {/* Main Route */}
+              {/* Folder Route */}
+              <Route
+                exact
+                path='/'
+                component={NoteListMain}
+              />
+              <Route
+                exact
+                path='/folders/:folderId'
+                component={NoteListMain}
+              />
+              {/* Note Route */}
+              <Route
+                exact
+                path='/notes/:noteId'
+                component={NotePageMain}
+              />
+              <Route
+                exact
+                path='/folders/add'
+                component={AddFolder}
+              />
+              <Route
+                exact
+                path='/add/note'
+                component={AddNote}
+              />
+            </main>
+          </ErrorPage>
         </div>
       </ApiContext.Provider>
     );
