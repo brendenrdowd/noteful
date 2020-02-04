@@ -1,3 +1,3 @@
 export default {
-    API_ENDPOINT: 'http://noteful-json-server.herokuapp.com'
+    API_ENDPOINT: 'https://noteful-json-server.herokuapp.com'
 }
