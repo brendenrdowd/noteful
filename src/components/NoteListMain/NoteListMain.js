@@ -12,7 +12,7 @@ class NoteListMain extends React.Component {
     const { notes = [] } = this.context
     const noteList = (!folderId)
       ? notes
-      : notes.filter(note => note.folderId === folderId)
+      : notes.filter(note => note.folderId === Number(folderId))
 
     return (
       <div className="Main">

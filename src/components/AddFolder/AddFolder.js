@@ -46,7 +46,8 @@ export default class AddFolder extends Component {
     fetch(`${config.API_ENDPOINT}/folders/`, {
       method: 'POST',
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
+        'Authorization': 'Bearer ' + config.API_TOKEN
       },
       body: JSON.stringify(folder)
     })

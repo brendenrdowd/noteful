@@ -9,11 +9,11 @@ class NotePageNav extends React.Component {
     const { notes, folders } = this.context
     let selectedFolder = {}
     //need to clean up
-    if(notes.length && folders.length){
+    if (notes.length && folders.length) {
       const selectedFolderId = notes.find(
-        note => note.id === this.props.match.params.noteId
+        note => note.id === Number(this.props.match.params.noteId)
       ).folderId
-  
+      // console.log(selectedFolder)
       selectedFolder = folders.find(
         folder => folder.id === selectedFolderId
       )

@@ -13,8 +13,6 @@ class Note extends React.Component {
     }
   }
 
-  
-
   static contextType = ApiContext;
 
   handleClickDelete = e => {
@@ -24,13 +22,14 @@ class Note extends React.Component {
     fetch(`${config.API_ENDPOINT}/notes/${noteId}`, {
       method: 'DELETE',
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
+        'Authorization': 'Bearer ' + config.API_TOKEN
       },
     })
       .then(res => {
         if (!res.ok)
           return res.json().then(e => Promise.reject(e))
-        return res.json()
+        return
       })
       .then(() => {
         this.props.history.push('/');
@@ -72,9 +71,10 @@ class Note extends React.Component {
 
 Note.propTypes = {
   modified:PropTypes.string,
-  id:PropTypes.string,
+  id:PropTypes.number,
   content:PropTypes.string,
-  name:PropTypes.string
+  name:PropTypes.string,
+  folderId:PropTypes.number
 }
 
 export default Note;

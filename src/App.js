@@ -10,6 +10,8 @@ import { Route, Link } from 'react-router-dom';
 import ApiContext from './ApiContext'
 import config from './api/config'
 import ErrorPage from './components/ErrorPage/ErrorPage'
+require('dotenv').config();
+
 
 class App extends React.Component {
   state = {
@@ -19,15 +21,26 @@ class App extends React.Component {
 
   componentDidMount() {
     Promise.all([
-      fetch(`${config.API_ENDPOINT}/notes`),
-      fetch(`${config.API_ENDPOINT}/folders`)
+      fetch(`${config.API_ENDPOINT}/notes`, {
+        method: 'get',
+        headers: new Headers({
+          'Authorization': 'Bearer ' + config.API_TOKEN,
+          'Content-Type': 'application/json'
+        })
+      }),
+      fetch(`${config.API_ENDPOINT}/folders`, {
+        method: 'get',
+        headers: new Headers({
+          'Authorization': 'Bearer ' + config.API_TOKEN,
+          'Content-Type': 'application/json'
+        })
+      })
     ])
       .then(([notesRes, foldersRes]) => {
         if (!notesRes.ok)
           return notesRes.json().then(e => Promise.reject(e))
         if (!foldersRes.ok)
           return foldersRes.json().then(e => Promise.reject(e))
-
         return Promise.all([
           notesRes.json(),
           foldersRes.json(),

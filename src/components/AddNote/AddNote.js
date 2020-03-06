@@ -86,12 +86,13 @@ export default class AddNote extends Component {
       name: this.state.name.value,
       content: this.state.content.value,
       folderId: e.target.folderId.value,
-      modified: Date.now()
+      date_modified: Date.now()
     }
-    fetch(`${config.API_ENDPOINT}/notes/`, {
+    fetch(`${config.API_ENDPOINT}/notes`, {
       method: 'POST',
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
+        'Authorization': 'Bearer ' + config.API_TOKEN
       },
       body: JSON.stringify(note)
     })

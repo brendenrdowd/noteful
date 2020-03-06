@@ -15,7 +15,7 @@ class NotePageMain extends React.Component {
     if(notes.length){
       const { noteId } = this.props.match.params
       note = notes.find(
-        note => note.id === noteId
+        note => note.id === Number(noteId)
       )
     }
     return (
