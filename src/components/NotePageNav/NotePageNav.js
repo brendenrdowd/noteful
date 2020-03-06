@@ -10,12 +10,11 @@ class NotePageNav extends React.Component {
     let selectedFolder = {}
     //need to clean up
     if (notes.length && folders.length) {
-      const selectedFolderId = notes.find(
+      const selectedfolder_id = notes.find(
         note => note.id === Number(this.props.match.params.noteId)
-      ).folderId
-      // console.log(selectedFolder)
+      ).folder_id
       selectedFolder = folders.find(
-        folder => folder.id === selectedFolderId
+        folder => folder.id === selectedfolder_id
       )
     }
 

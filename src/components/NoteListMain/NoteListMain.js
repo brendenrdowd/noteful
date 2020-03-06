@@ -8,11 +8,11 @@ class NoteListMain extends React.Component {
   static contextType = ApiContext;
 
   render() {
-    const { folderId } = this.props.match.params
+    const { folder_id } = this.props.match.params
     const { notes = [] } = this.context
-    const noteList = (!folderId)
+    const noteList = (!folder_id)
       ? notes
-      : notes.filter(note => note.folderId === Number(folderId))
+      : notes.filter(note => note.folder_id === Number(folder_id))
 
     return (
       <div className="Main">

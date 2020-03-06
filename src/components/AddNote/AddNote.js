@@ -15,7 +15,7 @@ export default class AddNote extends Component {
       value: "",
       touched: false
     },
-    folderId: {
+    folder_id: {
       value: "",
       touched: false
     }
@@ -64,16 +64,16 @@ export default class AddNote extends Component {
   }
 
   validateFolder() {
-    const folder = this.state.folderId.value;
+    const folder = this.state.folder_id.value;
     if (folder === "") {
       return 'Please select a folder';
     }
   }
 
-  updateFolder(folderId) {
+  updateFolder(folder_id) {
     this.setState({
-      folderId: {
-        value: folderId,
+      folder_id: {
+        value: folder_id,
         touched: true
       }
     });
@@ -82,10 +82,9 @@ export default class AddNote extends Component {
   handleSubmit = e => {
     e.preventDefault()
     const note = {
-      id: makeid(15),
       name: this.state.name.value,
       content: this.state.content.value,
-      folderId: e.target.folderId.value,
+      folder_id: e.target.folder_id.value,
       date_modified: Date.now()
     }
     fetch(`${config.API_ENDPOINT}/notes`, {
@@ -101,9 +100,10 @@ export default class AddNote extends Component {
           return res.json().then(e => Promise.reject(e))
         return res.json()
       })
-      .then(() => {
-        this.context.addNote(note)
-        this.props.history.push(`/notes/${note.id}`)
+      .then(res => {
+        console.log(".then: ",res)
+        this.context.addNote(res)
+        this.props.history.push(`/notes/${res.id}`)
       })
       .catch(error => {
         console.error({ error })
@@ -131,12 +131,12 @@ export default class AddNote extends Component {
             <textarea name="content" onChange={e => this.updateContent(e.target.value)} />
           </label>
           {this.state.content.touched && <ValidationError message={contentError}></ValidationError>}
-          <label htmlFor="folderId">Folder
-            <select name="folderId">
+          <label htmlFor="folder_id">Folder
+            <select name="folder_id">
               {options}
             </select>
           </label>
-          {this.state.folderId.touched && <ValidationError message={folderError}></ValidationError>}
+          {this.state.folder_id.touched && <ValidationError message={folderError}></ValidationError>}
           <button type="submit" disabled={this.validateName() || this.validateContent()}>Add Note</button>
         </form>
       </div>

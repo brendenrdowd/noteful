@@ -40,7 +40,6 @@ export default class AddFolder extends Component {
     e.preventDefault()
     const folder = {
       name: this.state.name.value,
-      id: makeid(10)
     }
 
     fetch(`${config.API_ENDPOINT}/folders/`, {
@@ -56,9 +55,9 @@ export default class AddFolder extends Component {
           return res.json().then(e => Promise.reject(e))
         return res.json()
       })
-      .then(() => {
-        this.context.addFolder(folder)
-        this.props.history.push(`/folders/${folder.id}`)
+      .then(res => {
+        this.context.addFolder(res)
+        this.props.history.push(`/folders/${res.id}`)
       })
       .catch(error => {
         console.error({ error })

@@ -47,6 +47,7 @@ class App extends React.Component {
         ])
       })
       .then(([notes, folders]) => {
+        console.log(notes)
         this.setState({ notes, folders })
       })
       .catch(error => {
@@ -98,9 +99,9 @@ class App extends React.Component {
               {/* Folder Route */}
               <Route
                 exact
-                path='/folders/:folderId'
+                path='/folders/:folder_id'
                 render={(props) =>
-                  <NoteListNav selected={props.match.params.folderId} />
+                  <NoteListNav selected={props.match.params.folder_id} />
                 }
               />
               {/* Note Route */}
@@ -122,7 +123,7 @@ class App extends React.Component {
               />
               <Route
                 exact
-                path='/folders/:folderId'
+                path='/folders/:folder_id'
                 component={NoteListMain}
               />
               {/* Note Route */}

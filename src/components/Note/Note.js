@@ -74,7 +74,7 @@ Note.propTypes = {
   id:PropTypes.number,
   content:PropTypes.string,
   name:PropTypes.string,
-  folderId:PropTypes.number
+  folder_id:PropTypes.number
 }
 
 export default Note;
