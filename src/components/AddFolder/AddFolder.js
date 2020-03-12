@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ApiContext from '../../ApiContext'
 import config from '../../api/config'
-import makeid from '../../makeId'
+
 import ValidationError from '../ValidationError/ValidationError'
 
 export default class AddFolder extends Component {
